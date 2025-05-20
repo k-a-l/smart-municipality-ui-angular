@@ -1,0 +1,31 @@
+.sidebar-nav {
+  background-color: #f8f9fa;
+  height: 100vh;
+  padding: 0 1rem;
+
+
+  a.mat-list-item {
+    color: #e15989;
+    border-radius: 0.5rem;
+    margin: 0.25rem 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    mat-icon {
+      margin-right: 0.75rem;
+      color: #9c27b0; // deep purple
+    }
+
+    &.active {
+      background-color: #e91e63; // rose-red
+      color: #fff;
+
+      mat-icon {
+        color: #fff;
+      }
+    }
+
+    &:hover {
+      background-color: #fce4ec; // light rose hover
+    }
+  }
+}

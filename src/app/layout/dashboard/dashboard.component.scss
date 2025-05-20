@@ -1,0 +1,22 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.3rem;
+  padding: 1.5rem;
+  color: #3a3a3a;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 10px;
+}
+
+.charts {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}

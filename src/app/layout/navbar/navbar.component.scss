@@ -1,0 +1,30 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ea8fca; // rose-red
+  color: #fff;
+
+  .logo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding-left: 1rem;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .user-icon-btn {
+    color: #fff;
+    margin-right: 1rem;
+
+    .user-icon {
+      font-size: 28px;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

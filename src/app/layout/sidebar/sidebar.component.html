@@ -1,0 +1,50 @@
+<p class="text-center text-lg font-semibold py-4 text-rose-600">
+  Admin Dashboard
+</p>
+
+<mat-nav-list class="sidebar-nav">
+  <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+    <mat-icon>dashboard</mat-icon>
+    <span>Dashboard</span>
+  </a>
+
+  <a mat-list-item routerLink="/requests/birth" routerLinkActive="active">
+    <mat-icon>child_friendly</mat-icon>
+    <span>Birth Certificates</span>
+  </a>
+
+  <a mat-list-item routerLink="/requests/death" routerLinkActive="active">
+    <mat-icon>airline_seat_flat</mat-icon>
+    <span>Death Certificates</span>
+  </a>
+
+  <a mat-list-item routerLink="/requests/marriage" routerLinkActive="active">
+    <mat-icon>favorite</mat-icon>
+    <span>Marriage Certificates</span>
+  </a>
+
+  <a mat-list-item routerLink="/verifiers" routerLinkActive="active">
+    <mat-icon>badge</mat-icon>
+    <span>Verifiers</span>
+  </a>
+
+  <a mat-list-item routerLink="/citizens" routerLinkActive="active">
+    <mat-icon>group</mat-icon>
+    <span>Citizens</span>
+  </a>
+
+  <a mat-list-item routerLink="/analytics" routerLinkActive="active">
+    <mat-icon>bar_chart</mat-icon>
+    <span>Analytics</span>
+  </a>
+
+  <a mat-list-item routerLink="/settings" routerLinkActive="active">
+    <mat-icon>settings</mat-icon>
+    <span>Settings</span>
+  </a>
+
+  <a mat-list-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </a>
+</mat-nav-list>

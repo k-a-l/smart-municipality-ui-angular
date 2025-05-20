@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" class="navbar">
+  <span class="logo">Smart Municipality Admin</span>
+
+  <span class="spacer"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu" class="user-icon-btn">
+    <mat-icon class="user-icon">account_circle</mat-icon>
+  </button>
+
+  <mat-menu #userMenu="matMenu" xPosition="before">
+    <button mat-menu-item disabled>
+      <mat-icon>person</mat-icon>
+      <span>{{ username || 'Super Admin' }}</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
