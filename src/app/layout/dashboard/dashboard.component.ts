@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MatCardModule} from '@angular/material/card';
 import {DashboardService} from '../../services/dashboard.service';
 
 @Component({
@@ -11,14 +11,16 @@ import {DashboardService} from '../../services/dashboard.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  totalRequests :number  = 0;
-  totalCitizens  = 0;
+  totalRequests: number = 0;
+  totalCitizens = 0;
   approvedRequests = 0; // Optional
   rejectedRequests = 0; // Optional
   pendingRequests = 0;
   processingTimeAverage = 0; // Optional
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(private dashboardService: DashboardService) {
+  }
+
   // The ngOnInit lifecycle hook is called after the component has been initialized
   // It's a good place to fetch data
   ngOnInit(): void {
