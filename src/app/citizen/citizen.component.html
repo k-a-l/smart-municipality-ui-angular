@@ -1,1 +1,98 @@
-<p>citizen works!</p>
+<h2>Citizen List</h2>
+
+<!-- Filter Bar -->
+<div class="filter-container">
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Search Name</mat-label>
+    <input matInput [(ngModel)]="nameFilter" (keyup)="applyFilters()" placeholder="Full Name">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Date of Birth</mat-label>
+    <input matInput [(ngModel)]="dobFilter" (change)="applyFilters()" type="date">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Gender</mat-label>
+    <mat-select [(ngModel)]="genderFilter" (selectionChange)="applyFilters()">
+      <mat-option value="">All</mat-option>
+      <mat-option value="MALE">Male</mat-option>
+      <mat-option value="FEMALE">Female</mat-option>
+      <mat-option value="OTHERS">Others</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="statusFilter" (selectionChange)="applyFilters()">
+      <mat-option value="">All</mat-option>
+      <mat-option value="PENDING">Pending</mat-option>
+      <mat-option value="APPROVED">Approved</mat-option>
+      <mat-option value="REJECTED">Rejected</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<!-- Table -->
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-width-table">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Full Name </th>
+    <td mat-cell *matCellDef="let c">
+      {{ c.firstName }} {{ c.middleName || '' }} {{ c.lastName }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="dob">
+    <th mat-header-cell *matHeaderCellDef> Date of Birth </th>
+    <td mat-cell *matCellDef="let c"> {{ c.dateOfBirth }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="gender">
+    <th mat-header-cell *matHeaderCellDef> Gender </th>
+    <td mat-cell *matCellDef="let c"> {{ c.gender }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef> Phone </th>
+    <td mat-cell *matCellDef="let c"> {{ c.phoneNo }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="municipality">
+    <th mat-header-cell *matHeaderCellDef> Address </th>
+    <td mat-cell *matCellDef="let c"> {{ c.municipality }}, Ward-{{ c.wardNo }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let c">
+      <span [ngClass]="{
+        'text-green': c.status === 'APPROVED',
+        'text-red': c.status === 'REJECTED',
+        'text-yellow': c.status === 'PENDING'
+      }">{{ c.status }}</span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="documents">
+    <th mat-header-cell *matHeaderCellDef> Documents </th>
+    <td mat-cell *matCellDef="let c">
+      <ul>
+        <li *ngFor="let doc of c.documents">
+          <a [href]="doc.documentPath" target="_blank">{{ doc.documentType }}</a>
+        </li>
+      </ul>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let c">
+      <button mat-raised-button color="primary" *ngIf="c.status === 'PENDING'" (click)="reviewCitizen(c)">
+        <mat-icon>visibility</mat-icon> Review
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

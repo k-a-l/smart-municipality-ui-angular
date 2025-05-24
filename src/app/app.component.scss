@@ -1,6 +1,21 @@
+/* styles.scss or styles.css */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+body, app-root {
+  padding-top: 64px; // Adjust if navbar height changes
+}
+
 .dashboard-layout {
   display: flex;
-  height: calc(100vh - 64px); /* Navbar height */
+  height: calc(100vh - 64px); // Subtracting navbar height
+  overflow: hidden;
+  margin-top: 7vh;
 }
 
 .sidebar {
@@ -8,6 +23,7 @@
   background: #f4f4f4;
   height: 100%;
   overflow-y: auto;
+
 }
 
 .main-content {
@@ -15,4 +31,3 @@
   padding: 1rem;
   overflow-y: auto;
 }
-

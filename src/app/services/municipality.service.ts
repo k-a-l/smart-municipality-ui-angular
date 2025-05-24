@@ -22,6 +22,9 @@ export class MunicipalityService {
   getAllCitizens(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/citizen/list`);
   }
+  getCitizenById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/citizen/${id}`);
+  }
 
   getCitizenCount(): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/citizen/count`);

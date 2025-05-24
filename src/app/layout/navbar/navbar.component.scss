@@ -1,14 +1,42 @@
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background-color: #ea8fca;
+  color: white;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background-color: #ea8fca; // rose-red
-  color: #fff;
+  justify-content: center;
+  z-index: 1001;
 
-  .logo {
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding-left: 1rem;
+  .centered-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.2;
+      color: white;
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    h2 {
+      font-size: 1rem;
+      font-weight: normal;
+    }
+
+    h3 {
+      font-size: 0.9rem;
+      font-weight: lighter;
+    }
   }
 
   .spacer {
@@ -16,8 +44,8 @@
   }
 
   .user-icon-btn {
-    color: #fff;
     margin-right: 1rem;
+    color: white;
 
     .user-icon {
       font-size: 28px;
