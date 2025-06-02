@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
-import {DashboardService} from '../../services/dashboard.service';
+import {DashboardService} from '../../../services/dashboard.service';
 import {ColumnChartComponent} from '../chart/column/column.component';
 import {RadialBarComponent} from '../chart/radial-bar/radial-bar.component';
 

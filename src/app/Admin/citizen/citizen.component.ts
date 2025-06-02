@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MunicipalityService } from '../services/municipality.service';
+import { MunicipalityService } from '../../services/municipality.service';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-citizen',
+  selector: 'app-Citizen',
   standalone: true,
   imports: [
     CommonModule,
@@ -78,4 +78,13 @@ export class CitizenComponent implements OnInit {
       if (success) console.log('Navigation successful');
     });
   }
+
+  updateCitizen(c: number) {
+    this.router.navigate(['/citizen/update', c]).then(success => {
+      if (success) console.log('Navigation successful');
+    });
+
+  }
+
+
 }

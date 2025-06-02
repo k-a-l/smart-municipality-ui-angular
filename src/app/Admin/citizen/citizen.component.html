@@ -90,6 +90,9 @@
       <button mat-raised-button color="primary" *ngIf="c.status === 'PENDING'" (click)="reviewCitizen(c)">
         <mat-icon>visibility</mat-icon> Review
       </button>
+      <button mat-raised-button color="accent" *ngIf="c.status === 'REJECTED'" (click)="updateCitizen(c)">
+        <mat-icon>edit</mat-icon> Update
+      </button>
     </td>
   </ng-container>
 

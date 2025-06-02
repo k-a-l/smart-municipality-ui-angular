@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router"
+import {Component, inject} from '@angular/core';
+import {Router, RouterLink} from "@angular/router"
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 
 
 @Component({
+  standalone: true,
   selector: 'app-sidebar',
   imports: [MatListModule,
   MatIconModule, RouterLink],
@@ -13,7 +14,15 @@ import {MatListModule} from "@angular/material/list";
 })
 export class SidebarComponent {
 
-  logout() {
-    console.log('logout');
-  }
+  router = inject(Router);
+
+logout() {
+  console.log('logout');
+  localStorage.removeItem('jwt');  // Remove token
+  this.router.navigate(['/login']); // Redirect to login page
+}
+
+
+
+
 }
