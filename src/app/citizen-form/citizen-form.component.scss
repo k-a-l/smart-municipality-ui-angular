@@ -1,0 +1,84 @@
+.container {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mat-card {
+  padding: 24px;
+}
+
+.form-title {
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+  color: #3f51b5;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-row {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.document-upload-card {
+  padding: 24px;
+}
+
+.file-input {
+  margin-bottom: 16px;
+  display: block;
+}
+
+.documents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.document-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+}
+
+.document-name {
+  flex: 1 1 auto;
+  font-weight: 500;
+  color: #424242;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.doc-type-select {
+  width: 180px;
+}
+
+.remove-button {
+  margin-left: auto;
+}
+
+.upload-button-row {
+  display: flex;
+  justify-content: flex-end;
+}
