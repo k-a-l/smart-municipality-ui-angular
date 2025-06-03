@@ -1,0 +1,64 @@
+<div class="review-container">
+  <h2>Citizen Review</h2>
+
+  <<div *ngIf="citizen">
+  <h2>Citizen Review</h2>
+
+  <div class="details-grid">
+    <div><strong>First Name:</strong> {{ citizen.firstName }}</div>
+    <div><strong>Middle Name:</strong> {{ citizen.middleName }}</div>
+    <div><strong>Last Name:</strong> {{ citizen.lastName }}</div>
+    <div><strong>Spouse Name:</strong> {{ citizen.spouseName }}</div>
+    <div><strong>Date of Birth:</strong> {{ citizen.dateOfBirth | date }}</div>
+    <div><strong>Phone Number:</strong> {{ citizen.phoneNo }}</div>
+    <div><strong>Father's Name:</strong> {{ citizen.fatherName }}</div>
+    <div><strong>Mother's Name:</strong> {{ citizen.motherName }}</div>
+    <div><strong>Grandfather's Name:</strong> {{ citizen.grandfatherName }}</div>
+    <div><strong>Grandmother's Name:</strong> {{ citizen.grandmotherName }}</div>
+    <div><strong>Gender:</strong> {{ citizen.gender }}</div>
+    <div><strong>Nationality:</strong> {{ citizen.nationality }}</div>
+    <div><strong>District:</strong> {{ citizen.district }}</div>
+    <div><strong>Municipality:</strong> {{ citizen.municipality }}</div>
+    <div><strong>Ward No:</strong> {{ citizen.wardNo }}</div>
+    <div><strong>Tole:</strong> {{ citizen.tole }}</div>
+    <div><strong>Status:</strong> {{ citizen.status }}</div>
+    <div><strong>Reason for Rejection:</strong> {{ citizen.reasonForRejection || 'N/A' }}</div>
+    <div><strong>Verified Date:</strong> {{ citizen.verifiedDate ? (citizen.verifiedDate | date) : 'Not verified' }}</div>
+    <div><strong>Verified By (User ID):</strong> {{ citizen.verifiedBy || 'N/A' }}</div>
+    <div><strong>Created At:</strong> {{ citizen.createdAt | date }}</div>
+    <div><strong>Updated At:</strong> {{ citizen.updatedAt | date }}</div>
+  </div>
+
+    <!-- Uploaded documents -->
+    <div *ngIf="citizen.documents?.length">
+      <h3>Uploaded Documents</h3>
+      <div class="document-grid">
+        <div *ngFor="let doc of citizen.documents" class="doc-preview">
+          <p><strong>{{ doc.documentType }}</strong> ({{ doc.fileName }})</p>
+
+          <ng-container [ngSwitch]="doc.contentType">
+            <img *ngSwitchCase="'image/png'" [src]="doc.previewUrl" class="preview-img" />
+            <img *ngSwitchCase="'image/jpeg'" [src]="doc.previewUrl" class="preview-img" />
+            <iframe *ngSwitchCase="'application/pdf'" [src]="doc.previewUrl" class="preview-pdf" frameborder="0"></iframe>
+          </ng-container>
+
+          <button (click)="downloadDocument(doc)">Download</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="action-buttons">
+      <button class="approve" (click)="approveCitizen()">Approve</button>
+      <button class="reject" (click)="toggleRejectForm()">Reject</button>
+    </div>
+
+    <!-- Reject form -->
+    <div *ngIf="showRejectForm" class="reject-form">
+      <form [formGroup]="rejectForm">
+        <textarea formControlName="reason" placeholder="Enter rejection reason" rows="3"></textarea>
+      </form>
+      <button class="submit-reject" (click)="rejectCitizen()">Submit Rejection</button>
+    </div>
+  </div>
+</div>

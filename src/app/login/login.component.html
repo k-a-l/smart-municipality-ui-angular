@@ -1,0 +1,38 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2 class="title">Smart Municipality Login</h2>
+
+    <div *ngIf="isNewUser">
+      <div *ngIf="!otpSent" class="form-group">
+        <input type="email" [(ngModel)]="email" placeholder="Enter your email" />
+        <button (click)="sendOtp()">Send OTP</button>
+      </div>
+
+      <div *ngIf="otpSent && !otpVerified" class="form-group">
+        <input type="text" [(ngModel)]="otp" placeholder="Enter OTP" />
+        <button (click)="verifyOtp()">Verify OTP</button>
+      </div>
+
+      <div *ngIf="otpVerified" class="form-group">
+        <input type="password" [(ngModel)]="password" placeholder="Create password" />
+        <input type="password" [(ngModel)]="confirmPassword" placeholder="Confirm password" />
+        <button (click)="setPassword()">Set Password</button>
+      </div>
+    </div>
+
+    <div *ngIf="!isNewUser" class="form-group">
+      <input type="email" [(ngModel)]="email" placeholder="Enter your email" />
+      <input type="password" [(ngModel)]="password" placeholder="Enter your password" />
+      <button (click)="login()">Login</button>
+    </div>
+
+    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <div class="toggle-login">
+      <button (click)="isNewUser = !isNewUser">
+        {{ isNewUser ? 'Already have an account? Login' : 'New user? Sign up with OTP' }}
+      </button>
+    </div>
+  </div>
+</div>
