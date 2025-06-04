@@ -3,20 +3,30 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import {MatDivider} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatMenuModule, MatButtonModule, MatDivider],
+  imports: [MatToolbarModule, MatIconModule, MatMenuModule, MatButtonModule, MatDividerModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  username = 'Admin User';
 
-  logout() {
-    // Add your logout logic here
-    console.log('Logout clicked');
+  email: string = localStorage.getItem('email') || '';
+  name: string = '';
+
+  constructor(private router: Router) {
+    this.name = this.email.split('@')[0];  // ✅ FIXED
+  }
+
+  logout(): void {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('email');
+    localStorage.removeItem('role');
+    this.router.navigate(['/login']);
+    console.log('Logged out');
   }
 }
