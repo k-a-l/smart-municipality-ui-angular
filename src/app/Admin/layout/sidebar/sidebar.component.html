@@ -1,48 +1,79 @@
 <div class="sidebar-wrapper" tabindex="0">
   <mat-nav-list class="sidebar-nav">
-    <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+
+    <!-- ADMIN + SUPER-ADMIN -->
+    <a mat-list-item routerLink="/dashboard" routerLinkActive="active" *ngIf="isAdmin() || isSuperAdmin()">
       <mat-icon>dashboard</mat-icon>
       <span>Dashboard</span>
     </a>
 
-    <a mat-list-item routerLink="/requests/birth" routerLinkActive="active">
+    <a mat-list-item routerLink="/requests/birth" routerLinkActive="active" *ngIf="isAdmin() || isSuperAdmin()">
       <mat-icon>child_friendly</mat-icon>
       <span>Birth Certificates</span>
     </a>
 
-    <a mat-list-item routerLink="/requests/death" routerLinkActive="active">
+    <a mat-list-item routerLink="/requests/death" routerLinkActive="active" *ngIf="isAdmin() || isSuperAdmin()">
       <mat-icon>airline_seat_flat</mat-icon>
       <span>Death Certificates</span>
     </a>
 
-    <a mat-list-item routerLink="/requests/marriage" routerLinkActive="active">
+    <a mat-list-item routerLink="/requests/marriage" routerLinkActive="active" *ngIf="isAdmin() || isSuperAdmin()">
       <mat-icon>favorite</mat-icon>
       <span>Marriage Certificates</span>
     </a>
 
-    <a mat-list-item routerLink="/verifiers" routerLinkActive="active">
+    <a mat-list-item routerLink="/verifiers" routerLinkActive="active" *ngIf="isAdmin() || isSuperAdmin()">
       <mat-icon>badge</mat-icon>
       <span>Verifiers</span>
     </a>
 
-    <a mat-list-item routerLink="/citizens" routerLinkActive="active">
+    <a mat-list-item routerLink="/citizens" routerLinkActive="active" *ngIf="isAdmin() || isSuperAdmin()">
       <mat-icon>group</mat-icon>
       <span>Citizens</span>
     </a>
 
-    <a mat-list-item routerLink="/analytics" routerLinkActive="active">
+    <a mat-list-item routerLink="/analytics" routerLinkActive="active" *ngIf="isAdmin() || isSuperAdmin()">
       <mat-icon>bar_chart</mat-icon>
       <span>Analytics</span>
     </a>
 
-    <a mat-list-item routerLink="/settings" routerLinkActive="active">
+    <a mat-list-item routerLink="/settings" routerLinkActive="active" *ngIf="isAdmin()">
       <mat-icon>settings</mat-icon>
       <span>Settings</span>
     </a>
 
+    <!-- SUPER ADMIN -->
+    <a mat-list-item routerLink="/staff/add" routerLinkActive="active" *ngIf="isSuperAdmin()">
+      <mat-icon>person_add</mat-icon>
+      <span>Add Staff</span>
+    </a>
+
+    <a mat-list-item routerLink="/staff/manage" routerLinkActive="active" *ngIf="isSuperAdmin()">
+      <mat-icon>supervisor_account</mat-icon>
+      <span>Manage Staff</span>
+    </a>
+
+    <!-- CITIZEN -->
+    <a mat-list-item routerLink="/apply/birth-certificate" routerLinkActive="active" *ngIf="isCitizen()">
+      <mat-icon>post_add</mat-icon>
+      <span>Apply for Birth Certificate</span>
+    </a>
+
+    <a mat-list-item routerLink="/my-requests" routerLinkActive="active" *ngIf="isCitizen()">
+      <mat-icon>history</mat-icon>
+      <span>My Requests</span>
+    </a>
+
+    <a mat-list-item routerLink="/profile" routerLinkActive="active" *ngIf="isCitizen()">
+      <mat-icon>person</mat-icon>
+      <span>My Profile</span>
+    </a>
+
+    <!-- Logout -->
     <a mat-list-item (click)="logout()">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </a>
+
   </mat-nav-list>
 </div>
