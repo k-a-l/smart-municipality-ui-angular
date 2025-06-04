@@ -126,7 +126,8 @@ export class LoginComponent {
     }).subscribe({
       next: (res) => {
         localStorage.setItem('jwt', res.jwtToken || res.token);
-        localStorage.setItem('role', res.role); // Save role
+        localStorage.setItem('role', res.role);
+        localStorage.setItem('email',res.email)
 
         this.successMessage = 'Logged in successfully.';
 
