@@ -1,133 +1,88 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';        
-import {MatIcon} from '@angular/material/icon';
-import {CommonModule} from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+
+import {CitizenDocumentUploadComponent} from '../Citizen/citizen-document-upload/citizen-document-upload.component';
 
 @Component({
   selector: 'app-citizen-form',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
-
+    MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatSnackBarModule,
     MatCardModule,
-    MatIcon,
-    CommonModule,
+    MatIconModule,
+    MatDividerModule,
+    CitizenDocumentUploadComponent
   ],
   templateUrl: './citizen-form.component.html',
   styleUrls: ['./citizen-form.component.scss']
 })
-export class CitizenFormComponent implements OnInit {
-  citizenForm!: FormGroup;
+export class CitizenFormComponent {
+  citizenForm: FormGroup ;
+  citizenId: number | null = null; // to hold created citizen ID
+  showDocumentUpload = false;
+  status: string | null = null; // default status
 
-  documentTypes = ['NATIONAL_ID', 'BIRTH_CERTIFICATE', 'PASSPORT'];
-
-  constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private snackBar: MatSnackBar
-  ) {}
-
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     this.citizenForm = this.fb.group({
       firstName: ['', Validators.required],
       middleName: [''],
       lastName: ['', Validators.required],
-      spouseName: [''],
-      dateOfBirth: ['', Validators.required],
-      phoneNo: ['', [Validators.required, Validators.pattern(/^\+?\d{7,15}$/)]],
-      fatherName: [''],
-      motherName: [''],
-      grandfatherName: [''],
-      grandmotherName: [''],
       gender: ['', Validators.required],
-      nationality: [''],
-      district: [''],
-      municipality: [''],
-      wardNo: [''],
-      tole: [''],
-      status: ['', Validators.required],
-      reasonForRejection: [''],
-      verifiedDate: [''],
-      verifiedBy: [''],
-      documents: this.fb.array([]) // FormArray to hold documents
+      spouseName: [''],
+      nationality: ['', Validators.required],
+      district: ['', Validators.required],
+      municipality: ['', Validators.required],
+      wardNo: ['', [Validators.required, Validators.min(1)]],
+      tole: ['', Validators.required],
+      fatherName: ['', Validators.required],
+      motherName: ['', Validators.required],
+      grandfatherName: ['', Validators.required],
+      grandmotherName: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      phoneNo: ['', [Validators.required]],
     });
   }
 
-  get documents(): FormArray {
-    return this.citizenForm.get('documents') as FormArray;
-  }
+  onSubmit() {
+    console.log('Form submit triggered'); // debug
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (!input.files) return;
-
-    for (let i = 0; i < input.files.length; i++) {
-      const file = input.files[i];
-      this.documents.push(
-        this.fb.group({
-          file: [file, Validators.required],
-          documentType: ['', Validators.required]
-        })
-      );
-    }
-    input.value = '';
-  }
-
-  removeDocument(index: number): void {
-    this.documents.removeAt(index);
-  }
-
-  uploadDocuments(): void {
-    if (this.documents.invalid) {
-      this.snackBar.open('Please select document types for all files', 'Close', { duration: 3000 });
-      return;
-    }
-    this.snackBar.open('Documents ready to upload!', 'Close', { duration: 2000 });
-  }
-
-  onSubmit(): void {
     if (this.citizenForm.invalid) {
-      this.snackBar.open('Please fill all required fields', 'Close', { duration: 3000 });
+      console.warn('Form is invalid', this.citizenForm.value); // debug
       return;
     }
 
-    const formData = new FormData();
-    const citizenData = { ...this.citizenForm.value };
-    delete citizenData.documents;
-
-    formData.append('citizenData', new Blob([JSON.stringify(citizenData)], { type: 'application/json' }));
-
-    this.documents.controls.forEach(doc => {
-      formData.append('files', doc.get('file')!.value);
-      formData.append('documentType', doc.get('documentType')!.value);
-    });
-
-    this.http.post('/api/v1/citizen', formData).subscribe({
-      next: () => {
-        this.snackBar.open('Citizen and documents saved successfully', 'Close', { duration: 3000 });
-        this.citizenForm.reset();
-        this.documents.clear();
+    this.http.post<any>('http://localhost:8080/api/v1/citizen', this.citizenForm.value).subscribe({
+      next: (response) => {
+        console.log('Response from backend:', response); // debug
+        alert('Citizen saved successfully!');
+        this.citizenId = response.id;
+        this.status = response.status;
+        console.log("The status is ",this.status)
+        this.showDocumentUpload = true;
       },
-      error: () => {
-        this.snackBar.open('Error saving citizen data', 'Close', { duration: 3000 });
+      error: (err) => {
+        console.error('Error occurred:', err); // debug
+        alert('Failed to save citizen');
       }
     });
   }
+
 }

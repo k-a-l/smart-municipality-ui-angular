@@ -54,6 +54,12 @@
     </a>
 
     <!-- CITIZEN -->
+    <a mat-list-item routerLink="/citizen-form" routerLinkActive="active" *ngIf="isCitizen()">
+      <mat-icon>person</mat-icon>
+      <span>My Profile</span>
+    </a>
+
+
     <a mat-list-item routerLink="/apply/birth-certificate" routerLinkActive="active" *ngIf="isCitizen()">
       <mat-icon>post_add</mat-icon>
       <span>Apply for Birth Certificate</span>
@@ -64,10 +70,7 @@
       <span>My Requests</span>
     </a>
 
-    <a mat-list-item routerLink="/profile" routerLinkActive="active" *ngIf="isCitizen()">
-      <mat-icon>person</mat-icon>
-      <span>My Profile</span>
-    </a>
+
 
     <!-- Logout -->
     <a mat-list-item (click)="logout()">
