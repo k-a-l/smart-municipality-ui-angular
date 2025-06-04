@@ -8,11 +8,12 @@ import { authGuard } from './auth.guard';
 import {CitizenFormComponent} from './citizen-form/citizen-form.component';
 import {CitizenViewComponent} from './Citizen/citizen-view/citizen-view.component';
 import {SuperAdminDashboardComponent} from './Admin/super-admin-dashboard/super-admin-dashboard.component';
+import {StaffDasboardComponent} from './Admin/staff-dasboard/staff-dasboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'admin-dashboard', component: DashboardComponent, canActivate: [authGuard] },
+  { path: 'admin-dashboard', component: StaffDasboardComponent, canActivate: [authGuard] },
   { path: 'citizens', component: CitizenComponent, canActivate: [authGuard] },
   { path: 'citizen/review/:id', component: ReviewComponent, canActivate: [authGuard] },
   { path: 'citizen-view', component: CitizenViewComponent, canActivate: [authGuard] },

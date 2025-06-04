@@ -8,26 +8,37 @@ html, body {
 }
 
 body, app-root {
-  padding-top: 64px; // Adjust if navbar height changes
+  padding-top: 64px; /* Offset for fixed navbar height */
 }
 
+/* Main dashboard flex container */
 .dashboard-layout {
   display: flex;
-  height: calc(100vh - 64px); // Subtracting navbar height
+  height: calc(100vh - 64px); /* Full viewport minus navbar */
   overflow: hidden;
-  margin-top: 7vh;
+  /* Removed margin-top: 7vh */
 }
 
+/* Sidebar styles */
 .sidebar {
   width: 250px;
   background: #f4f4f4;
-  height: 100%;
+  height: 100%; /* Full height of dashboard-layout */
   overflow-y: auto;
-
+  position: fixed; /* Fix sidebar to the left */
+  top: 64px; /* Below navbar */
+  left: 0;
+  bottom: 0;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  z-index: 10;
 }
 
+/* Main content styles */
 .main-content {
+  margin-left: 250px; /* Same width as sidebar */
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
+  height: 100%; /* Fill height of dashboard-layout */
+  background-color: #fff;
 }
