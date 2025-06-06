@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -12,7 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 
-import {CitizenDocumentUploadComponent} from '../Citizen/citizen-document-upload/citizen-document-upload.component';
+import { CitizenDocumentUploadComponent } from '../Citizen/citizen-document-upload/citizen-document-upload.component';
 
 @Component({
   selector: 'app-citizen-form',
@@ -20,6 +20,7 @@ import {CitizenDocumentUploadComponent} from '../Citizen/citizen-document-upload
   imports: [
     CommonModule,
     ReactiveFormsModule,
+
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -35,10 +36,10 @@ import {CitizenDocumentUploadComponent} from '../Citizen/citizen-document-upload
   styleUrls: ['./citizen-form.component.scss']
 })
 export class CitizenFormComponent {
-  citizenForm: FormGroup ;
-  citizenId: number | null = null; // to hold created citizen ID
+  citizenForm: FormGroup;
+  citizenId: number | null = null;
   showDocumentUpload = false;
-  status: string | null = null; // default status
+  status: string | null = null;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.citizenForm = this.fb.group({
@@ -62,27 +63,41 @@ export class CitizenFormComponent {
   }
 
   onSubmit() {
-    console.log('Form submit triggered'); // debug
+    console.log('Form submit triggered');
 
     if (this.citizenForm.invalid) {
-      console.warn('Form is invalid', this.citizenForm.value); // debug
+      console.warn('Form is invalid', this.citizenForm.value);
       return;
     }
 
-    this.http.post<any>('http://localhost:8080/api/v1/citizen', this.citizenForm.value).subscribe({
+    const token = localStorage.getItem('jwt');
+
+    if (!token) {
+      alert('You are not logged in.');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.post<any>(
+      'http://localhost:8080/api/v1/citizen',
+      this.citizenForm.value,
+      { headers }
+    ).subscribe({
       next: (response) => {
-        console.log('Response from backend:', response); // debug
+        console.log('Response from backend:', response);
         alert('Citizen saved successfully!');
         this.citizenId = response.id;
         this.status = response.status;
-        console.log("The status is ",this.status)
+
         this.showDocumentUpload = true;
       },
       error: (err) => {
-        console.error('Error occurred:', err); // debug
+        console.error('Error occurred:', err);
         alert('Failed to save citizen');
       }
     });
   }
-
 }

@@ -74,13 +74,11 @@
   </ng-container>
 
   <ng-container matColumnDef="documents">
-    <th mat-header-cell *matHeaderCellDef> Documents </th>
+    <th mat-header-cell *matHeaderCellDef> VerifiedBy </th>
     <td mat-cell *matCellDef="let c">
-      <ul>
-        <li *ngFor="let doc of c.documents">
-          <a [href]="doc.documentPath" target="_blank">{{ doc.documentType }}</a>
-        </li>
-      </ul>
+      <span *ngIf="c.verifiedBy">{{ c.verifiedBy }}</span>
+      <span *ngIf="!c.verifiedBy">Not Verified</span>
+
     </td>
   </ng-container>
 

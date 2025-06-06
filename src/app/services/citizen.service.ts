@@ -12,7 +12,7 @@ export class CitizenService {
   // Reject Citizen
   rejectCitizen(citizenId: number, reason: string, verifiedBy: number) {
     const url = `${this.baseUrl}/${citizenId}/reject`;
-    const params = new HttpParams().set('verifiedBy', verifiedBy.toString());
+    const params = new HttpParams().set('verifierId', verifiedBy.toString());
     const body = { reason };
 
     return this.http.post<void>(url, body, { params });
@@ -21,7 +21,7 @@ export class CitizenService {
   // Approve Citizen
   approveCitizen(citizenId: number, verifiedBy: number) {
     const url = `${this.baseUrl}/${citizenId}/approve`;
-    const params = new HttpParams().set('verifiedBy', verifiedBy.toString());
+    const params = new HttpParams().set('verifierId', verifiedBy.toString());
 
     return this.http.post<void>(url, {}, { params });
   }

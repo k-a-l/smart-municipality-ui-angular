@@ -50,6 +50,7 @@ export class CitizenComponent implements OnInit {
     });
   }
 
+
   applyFilters(): void {
     const filterValues = {
       name: this.nameFilter.trim().toLowerCase(),

@@ -1,4 +1,4 @@
-<div *ngIf="status == 'REJECTED'">
+<div *ngIf= !citizenId>
   <mat-card class="status-card">
     <mat-card-title>Citizen Request Status</mat-card-title>
     <mat-card-content>
@@ -121,11 +121,6 @@
 
 </mat-card>
 </div>
-</div>
-<div
-     class="status-message"
-     [ngClass]="status?.toLowerCase()">
-  Your citizen request is <strong>{{ status }}</strong>.
 </div>
 
 <app-citizen-document-upload
