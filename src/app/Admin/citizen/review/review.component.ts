@@ -6,6 +6,7 @@ import { CitizenService } from '../../../services/citizen.service';
 import { MunicipalityService } from '../../../services/municipality.service';
 import { DocumentService } from '../../../services/document.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {UserServiceService} from '../../../User/user-service.service';
 
 @Component({
   selector: 'app-review',
@@ -19,9 +20,10 @@ export class ReviewComponent implements OnInit {
   citizenId!: number;
   rejectForm: FormGroup;
   showRejectForm = false;
-  verifiedBy = 1;
+  verifiedBy: number | null = null;// Assuming this is set somewhere in your application logic
 
   constructor(
+    private userService: UserServiceService,
     private route: ActivatedRoute,
     private router: Router,
     private citizenService: CitizenService,
@@ -37,7 +39,16 @@ export class ReviewComponent implements OnInit {
     this.citizenId = Number(this.route.snapshot.paramMap.get('id'));
     this.getCitizenDetails();
     this.getCitizenDocuments();
+    this.userService.findUserByEmail(localStorage.getItem('email')).subscribe({
+      next: (user) => {
+        this.verifiedBy = user.id; // Assuming user has an 'id' property
+      },
+      error: (err) => console.error('Error fetching user:', err)
+    });
+
   }
+
+
 
   getCitizenDetails() {
     this.muniService.getCitizenById(this.citizenId).subscribe({
@@ -63,8 +74,11 @@ export class ReviewComponent implements OnInit {
       error: (err) => console.error('Error fetching documents:', err)
     });
   }
-
   approveCitizen() {
+    if (this.verifiedBy === null) {
+      alert('Verifier not loaded.');
+      return;
+    }
     this.citizenService.approveCitizen(this.citizenId, this.verifiedBy).subscribe({
       next: () => {
         alert('Citizen approved successfully.');
@@ -77,6 +91,11 @@ export class ReviewComponent implements OnInit {
     const reason = this.rejectForm.value.reason;
     if (!reason) {
       alert('Please provide a reason.');
+      return;
+    }
+
+    if (this.verifiedBy === null) {
+      alert('Verifier not loaded.');
       return;
     }
 

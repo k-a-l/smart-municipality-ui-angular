@@ -26,6 +26,7 @@ export class NavbarComponent {
     localStorage.removeItem('jwt');
     localStorage.removeItem('email');
     localStorage.removeItem('role');
+    localStorage.removeItem('name');
     this.router.navigate(['/login']);
     console.log('Logged out');
   }

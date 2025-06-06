@@ -129,6 +129,8 @@ export class LoginComponent {
         localStorage.setItem('role', res.role);
         localStorage.setItem('email',res.email)
 
+        console.log(res.email);
+
         this.successMessage = 'Logged in successfully.';
 
         // Redirect based on role
