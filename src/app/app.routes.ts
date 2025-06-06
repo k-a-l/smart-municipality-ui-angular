@@ -9,6 +9,7 @@ import {CitizenFormComponent} from './citizen-form/citizen-form.component';
 import {CitizenViewComponent} from './Citizen/citizen-view/citizen-view.component';
 import {SuperAdminDashboardComponent} from './Admin/super-admin-dashboard/super-admin-dashboard.component';
 import {StaffDasboardComponent} from './Admin/staff-dasboard/staff-dasboard.component';
+import {CitizenProfileComponent} from './Citizen/citizen-profile/citizen-profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -18,7 +19,8 @@ export const routes: Routes = [
   { path: 'citizen/review/:id', component: ReviewComponent, canActivate: [authGuard] },
   { path: 'citizen-view', component: CitizenViewComponent, canActivate: [authGuard] },
   {path: 'citizen-form' ,component: CitizenFormComponent  },
-  {path:'super-admin-dashboard', component: SuperAdminDashboardComponent}
+  {path:'super-admin-dashboard', component: SuperAdminDashboardComponent},
+  {path:'citizen-profile', component: CitizenProfileComponent}
 
 
 ];

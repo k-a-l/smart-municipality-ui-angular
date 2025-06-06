@@ -4,6 +4,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {RouterOutlet} from '@angular/router';
 import {CommonModule} from "@angular/common";
 import {NgApexchartsModule} from 'ng-apexcharts';
+import {NavbarComponent} from './Admin/layout/navbar/navbar.component';
+import {SidebarComponent} from './Admin/layout/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,8 @@ import {NgApexchartsModule} from 'ng-apexcharts';
     MatSidenavModule,
     MatToolbarModule,
     RouterOutlet,
-
+    NavbarComponent,
+    SidebarComponent,
 
 
   ],
