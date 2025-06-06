@@ -54,9 +54,14 @@
     </a>
 
     <!-- CITIZEN -->
-    <a mat-list-item routerLink="/citizen-form" routerLinkActive="active" *ngIf="isCitizen()">
+    <a mat-list-item routerLink="/citizen-profile" routerLinkActive="active" *ngIf="isCitizen()">
       <mat-icon>person</mat-icon>
       <span>My Profile</span>
+    </a>
+
+    <a mat-list-item routerLink="/verify" routerLinkActive="active" *ngIf="isCitizen()">
+      <mat-icon>fact_check</mat-icon>
+      <span>Verify Document</span>
     </a>
 
 

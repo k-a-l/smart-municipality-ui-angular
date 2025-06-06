@@ -37,6 +37,7 @@ export class SidebarComponent {
     localStorage.removeItem('jwt');
     localStorage.removeItem('username');
     localStorage.removeItem('role');
+    localStorage.removeItem('name');
     this.router.navigate(['/login']);
   }
 }
