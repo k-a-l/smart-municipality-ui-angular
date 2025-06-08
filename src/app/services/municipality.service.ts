@@ -77,19 +77,5 @@ export class MunicipalityService {
     return this.http.get<number>(`${this.baseUrl}/certificate/pending-count`);
   }
 
-  getTotalCertificateCount(): Observable<number> {
-    return this.http.get<number>(`${this.baseUrl}/certificate/count`);
-  }
 
-  downloadCertificate(referenceNumber: string): Observable<Blob> {
-    return this.http.get(`${this.baseUrl}/certificate/download/${referenceNumber}`, { responseType: 'blob' });
-  }
-
-  downloadBirthCertificateById(id: number): Observable<Blob> {
-    return this.http.get(`${this.baseUrl}/certificate/birth/${id}/download`, { responseType: 'blob' });
-  }
-
-  deleteCertificateById(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/certificate/delete/${id}`);
-  }
 }

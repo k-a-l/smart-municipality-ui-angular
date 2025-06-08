@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,9 @@ export class CitizenService {
 
     return this.http.post<void>(url, body, { params });
   }
+  getCitizenById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
 
   // Approve Citizen
   approveCitizen(citizenId: number, verifiedBy: number) {
@@ -25,4 +29,8 @@ export class CitizenService {
 
     return this.http.post<void>(url, {}, { params });
   }
+  findCitizenByUserEmail(email: string | null) {
+    return this.http.get<any>(`${this.baseUrl}/by-email?email=${email}`);
+  }
+
 }
