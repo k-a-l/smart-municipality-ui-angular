@@ -1,0 +1,107 @@
+<div class="p-6">
+  <h2 class="text-2xl font-bold mb-4">Your Birth Certificate Requests</h2>
+
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+  <div *ngIf="!isLoading && requests.length === 0" class="text-gray-600">
+    No requests found.
+  </div>
+
+  <table *ngIf="!isLoading && requests.length > 0" mat-table [dataSource]="requests" class="mat-elevation-z8 w-full">
+
+    <ng-container matColumnDef="childName">
+      <th mat-header-cell *matHeaderCellDef> Child Name </th>
+      <td mat-cell *matCellDef="let request"> {{ request.childName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef> Gender </th>
+      <td mat-cell *matCellDef="let request"> {{ request.gender }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateOfBirth">
+      <th mat-header-cell *matHeaderCellDef> DOB </th>
+      <td mat-cell *matCellDef="let request"> {{ request.dateOfBirth }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let request">
+        <span
+          [ngClass]="{
+            'text-green-600 font-semibold': request.status === 'APPROVED',
+            'text-red-600 font-semibold': request.status === 'REJECTED',
+            'text-yellow-600 font-semibold': request.status === 'PENDING',
+
+
+          }"
+        >
+          {{ request.status }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let request">
+        <div class="flex flex-col gap-2">
+
+          <!-- Show Download only if APPROVED -->
+          <button
+            *ngIf="request.status === 'APPROVED'"
+            mat-raised-button
+            color="accent"
+            (click)="downloadCertificate(request.id)">
+            Download
+          </button>
+
+          <!-- Admin/Super Admin Actions -->
+          <ng-container *ngIf="userRole === 'ADMIN' || userRole === 'SUPERADMIN'">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="approve(request.id)"
+              [disabled]="request.status === 'APPROVED'">
+              Approve
+            </button>
+
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="showRejectInput[request.id] = !showRejectInput[request.id]"
+              [disabled]="request.status === 'REJECTED'">
+              Reject
+            </button>
+
+
+            <button mat-raised-button color="primary" (click)="showReviewRequest(request.id)">
+              <mat-icon>visibility</mat-icon> Review
+            </button>
+
+
+            <!-- Reject input box -->
+            <div *ngIf="showRejectInput[request.id]" class="mt-2">
+              <textarea
+                [(ngModel)]="rejectionMessage[request.id]"
+                placeholder="Reason for rejection"
+                rows="2"
+                class="w-full border rounded p-2">
+              </textarea>
+              <button
+                mat-raised-button
+                color="warn"
+                class="mt-1"
+                (click)="submitRejection(request.id)"
+                [disabled]="!rejectionMessage[request.id]?.trim()">
+                Submit Rejection
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['childName', 'gender', 'dateOfBirth', 'status', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['childName', 'gender', 'dateOfBirth', 'status', 'actions'];"></tr>
+  </table>
+</div>
