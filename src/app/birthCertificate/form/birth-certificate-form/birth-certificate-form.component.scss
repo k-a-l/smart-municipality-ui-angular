@@ -1,0 +1,40 @@
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #3f51b5;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.success-msg {
+  color: green;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.error-msg {
+  color: red;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 1rem;
+}
