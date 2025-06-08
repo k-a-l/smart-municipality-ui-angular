@@ -10,6 +10,15 @@ import {CitizenViewComponent} from './Citizen/citizen-view/citizen-view.componen
 import {SuperAdminDashboardComponent} from './Admin/super-admin-dashboard/super-admin-dashboard.component';
 import {StaffDasboardComponent} from './Admin/staff-dasboard/staff-dasboard.component';
 import {CitizenProfileComponent} from './Citizen/citizen-profile/citizen-profile.component';
+import {
+  BirthCertificateFormComponent
+} from './birthCertificate/form/birth-certificate-form/birth-certificate-form.component';
+import {
+  BirthCertificateRequestListComponent
+} from './birthCertificate/requestList/birth-certificate-request-list/birth-certificate-request-list.component';
+import {
+  BirthCertificateReviewComponent
+} from './birthCertificate/requestList/birth-certificate-review/birth-certificate-review.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -20,7 +29,10 @@ export const routes: Routes = [
   { path: 'citizen-view', component: CitizenViewComponent, canActivate: [authGuard] },
   {path: 'citizen-form' ,component: CitizenFormComponent  },
   {path:'super-admin-dashboard', component: SuperAdminDashboardComponent},
-  {path:'citizen-profile', component: CitizenProfileComponent}
+  {path:'citizen-profile', component: CitizenProfileComponent},
+  {path:'apply/birth-certificate-form', component: BirthCertificateFormComponent},
+  {path: 'view/birth-certificate-request-list', component: BirthCertificateRequestListComponent},
+  {path: 'birth-certificate-review/:id', component: BirthCertificateReviewComponent}
 
 
 ];
