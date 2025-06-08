@@ -1,0 +1,17 @@
+<mat-card *ngIf="loading" class="loading-card">
+  <mat-spinner></mat-spinner>
+  <p>Checking citizen status...</p>
+</mat-card>
+
+<mat-card *ngIf="!loading && status === 'pending'" class="status-card pending">
+  <h2>Your application is under review.</h2>
+  <p>Please check back later.</p>
+</mat-card>
+
+<mat-card *ngIf="!loading && status === 'rejected'" class="status-card rejected">
+  <h2>Your application has been rejected.</h2>
+  <p>Please contact your municipality office or reapply.</p>
+  <p><strong>Reason for Rejection:</strong> {{ rejectionReason }}</p>
+</mat-card>
+
+<app-citizen-form *ngIf="!loading && status === 'form'"></app-citizen-form>

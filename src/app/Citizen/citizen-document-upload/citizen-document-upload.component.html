@@ -1,0 +1,48 @@
+<div *ngIf="!uploadCompleted">
+<div class="upload-wrapper">
+  <h2>Upload Documents</h2>
+
+  <!-- Document Type Selector -->
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Document Type</mat-label>
+    <mat-select [(ngModel)]="documentType" name="documentType">
+      <mat-option *ngFor="let type of documentTypes" [value]="type.value">
+        {{ type.label }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Document Files -->
+  <div class="file-input">
+    <label for="documentInput" class="custom-file-label">
+      <mat-icon>upload</mat-icon> Choose Document Files
+    </label>
+    <input type="file" id="documentInput" multiple (change)="onDocumentFileChange($event)" hidden />
+    <ul *ngIf="files.length > 0">
+      <li *ngFor="let file of files">{{ file.name }}</li>
+    </ul>
+  </div>
+
+  <!-- Passport Photo -->
+  <h2>Upload Passport Size Photo</h2>
+  <div class="file-input">
+    <label for="passportInput" class="custom-file-label">
+      <mat-icon>upload</mat-icon> Choose Passport Photo
+    </label>
+    <input type="file" id="passportInput" (change)="onPassportFileChange($event)" hidden />
+    <div *ngIf="passportPhoto">
+      Selected: {{ passportPhoto.name }}
+    </div>
+  </div>
+
+  <!-- Unified Submit Button -->
+  <button mat-raised-button color="primary" class="mt-3" (click)="submitAll()">Submit</button>
+</div>
+</div>
+
+<div *ngIf="uploadCompleted"
+     class="status-message"
+     [ngClass]="status?.toLowerCase()">
+  Your citizen request is <strong>{{ status }}</strong>.
+</div>
+
