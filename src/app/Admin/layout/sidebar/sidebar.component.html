@@ -7,7 +7,7 @@
       <span>Dashboard</span>
     </a>
 
-    <a mat-list-item routerLink="/requests/birth" routerLinkActive="active" *ngIf="isAdmin() || isSuperAdmin()">
+    <a mat-list-item routerLink="/view/birth-certificate-request-list" routerLinkActive="active" *ngIf="isAdmin() || isSuperAdmin()">
       <mat-icon>child_friendly</mat-icon>
       <span>Birth Certificates</span>
     </a>
@@ -65,12 +65,12 @@
     </a>
 
 
-    <a mat-list-item routerLink="/apply/birth-certificate" routerLinkActive="active" *ngIf="isCitizen()">
+    <a mat-list-item routerLink="/apply/birth-certificate-form" routerLinkActive="active" *ngIf="isCitizen()">
       <mat-icon>post_add</mat-icon>
       <span>Apply for Birth Certificate</span>
     </a>
 
-    <a mat-list-item routerLink="/my-requests" routerLinkActive="active" *ngIf="isCitizen()">
+    <a mat-list-item routerLink="/view/birth-certificate-request-list" routerLinkActive="active" *ngIf="isCitizen()">
       <mat-icon>history</mat-icon>
       <span>My Requests</span>
     </a>
