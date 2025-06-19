@@ -1,27 +1,29 @@
-<div class="p-6" *ngIf="!isLoading">
-  <h2 class="text-2xl font-bold mb-4">Birth Certificate Review</h2>
+<mat-card *ngIf="!isLoading" class="review-card">
+  <h2 class="section-title">Birth Certificate Review</h2>
 
-  <div class="mb-6">
-    <h3 class="text-xl font-semibold">Child Information</h3>
-    <p><strong>Name:</strong> {{ request.childName }}</p>
-    <p><strong>Gender:</strong> {{ request.gender }}</p>
-    <p><strong>Date of Birth:</strong> {{ request.dateOfBirth }}</p>
-    <p><strong>Status:</strong> {{ request.status }}</p>
+  <div class="info-block">
+    <h3 class="info-title">Child Information</h3>
+    <div class="info-grid">
+      <div class="info-item"><label>Name</label><span>{{ request.childName }}</span></div>
+      <div class="info-item"><label>Gender</label><span>{{ request.gender }}</span></div>
+      <div class="info-item"><label>Date of Birth</label><span>{{ request.dateOfBirth }}</span></div>
+      <div class="info-item"><label>Status</label><span>{{ request.status }}</span></div>
+    </div>
   </div>
 
-  <div class="mb-6">
-    <h3 class="text-xl font-semibold">Citizen (Parent) Information</h3>
-    <p><strong>First Name:</strong> {{ citizen.firstName }}</p>
-    <p><strong>Last Name:</strong> {{ citizen.lastName}}</p>
-    <p><strong>Wife Name:</strong> {{ citizen.spouseName }}</p>
+  <div class="info-block">
+    <h3 class="info-title">Citizen (Parent) Information</h3>
+    <div class="info-grid">
+      <div class="info-item"><label>First Name</label><span>{{ citizen.firstName }}</span></div>
+      <div class="info-item"><label>Last Name</label><span>{{ citizen.lastName }}</span></div>
+      <div class="info-item"><label>Wife Name</label><span>{{ citizen.spouseName }}</span></div>
+      <div class="info-item"><label>Status</label><span>{{ citizen.status }}</span></div>
+    </div>
   </div>
 
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="reviewParents()">
-    Review Parents
-  </button>
-</div>
+  <div class="mt-6">
+    <button mat-raised-button color="primary" (click)="reviewParents()">Review Parents</button>
+  </div>
+</mat-card>
 
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
