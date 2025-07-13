@@ -1,5 +1,5 @@
 <div class="p-6">
-  <h2 class="text-2xl font-bold mb-4">Your Birth Certificate Requests</h2>
+  <h2 class="text-2xl font-bold mb-4">Birth Certificate Requests</h2>
 
   <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 
@@ -54,6 +54,9 @@
             (click)="downloadCertificate(request.id)">
             Download
           </button>
+          <p *ngIf="request.status != 'APPROVED' && userRole === 'CITIZEN' "
+          ><i>Download Available After Approved</i></p>
+
 
           <!-- Admin/Super Admin Actions -->
           <ng-container *ngIf="userRole === 'ADMIN' || userRole === 'SUPERADMIN'">
@@ -105,3 +108,5 @@
     <tr mat-row *matRowDef="let row; columns: ['childName', 'gender', 'dateOfBirth', 'status', 'actions'];"></tr>
   </table>
 </div>
+<app-death-certificate-list *ngIf="userRole==='CITIZEN'"></app-death-certificate-list>
+<app-marriage-request-list *ngIf="userRole==='CITIZEN'"></app-marriage-request-list>

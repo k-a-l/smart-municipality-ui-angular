@@ -42,27 +42,21 @@
   }
 }
 .status-message {
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
+  margin-top: 1rem;
   border-radius: 8px;
+  font-size: 1rem;
   font-weight: 500;
-  font-size: 1.1rem;
-  color: white;
-  background-color: #607d8b; // fallback
-  margin: 50vh;
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-in-out;
 
-  text-align: center;
-  width: fit-content;
-  max-width: 90%;
-
-  &.pending {
-    background-color: #ff9800;
-  }
-
-  &.approved {
-    background-color: #4caf50;
-  }
-
-  &.rejected {
-    background-color: #f44336;
+  &.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
   }
 }
+

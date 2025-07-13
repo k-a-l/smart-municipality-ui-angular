@@ -44,3 +44,23 @@
     font-weight: 600;
   }
 }
+.reappeal-btn {
+  margin-top: 16px;
+  background: linear-gradient(to right, #f87171, #ef4444);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+
+  mat-icon {
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #dc2626, #b91c1c);
+  }
+}

@@ -1,130 +1,157 @@
-<div *ngIf= !citizenId>
-  <mat-card class="status-card">
-    <mat-card-title>Citizen Request Status</mat-card-title>
-    <mat-card-content>
-      Your citizen request is currently pending. Please wait for further updates.
-    </mat-card-content>
+<form *ngIf="!showDocumentUpload" [formGroup]="citizenForm" (ngSubmit)="onSubmit()">
+
+  <mat-card>
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" />
+      <mat-error *ngIf="citizenForm.get('firstName')?.invalid && citizenForm.get('firstName')?.touched">
+        First Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Middle Name</mat-label>
+      <input matInput formControlName="middleName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" />
+      <mat-error *ngIf="citizenForm.get('lastName')?.invalid && citizenForm.get('lastName')?.touched">
+        Last Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="MALE">Male</mat-option>
+        <mat-option value="FEMALE">Female</mat-option>
+        <mat-option value="OTHER">Other</mat-option>
+      </mat-select>
+      <mat-error *ngIf="citizenForm.get('gender')?.invalid && citizenForm.get('gender')?.touched">
+        Gender is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" *ngIf="marriageStatus === 'MARRIED'">
+      <mat-label>Spouse Name</mat-label>
+      <input matInput formControlName="spouseName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nationality</mat-label>
+      <input matInput formControlName="nationality" />
+      <mat-error *ngIf="citizenForm.get('nationality')?.invalid && citizenForm.get('nationality')?.touched">
+        Nationality is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>District</mat-label>
+      <input matInput formControlName="district" />
+      <mat-error *ngIf="citizenForm.get('district')?.invalid && citizenForm.get('district')?.touched">
+        District is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Municipality</mat-label>
+      <input matInput formControlName="municipality" />
+      <mat-error *ngIf="citizenForm.get('municipality')?.invalid && citizenForm.get('municipality')?.touched">
+        Municipality is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Ward No</mat-label>
+      <input matInput type="number" formControlName="wardNo" />
+      <mat-error *ngIf="citizenForm.get('wardNo')?.invalid && citizenForm.get('wardNo')?.touched">
+        Ward No is required and must be >= 1
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Tole</mat-label>
+      <input matInput formControlName="tole" />
+      <mat-error *ngIf="citizenForm.get('tole')?.invalid && citizenForm.get('tole')?.touched">
+        Tole is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Father Name</mat-label>
+      <input matInput formControlName="fatherName" />
+      <mat-error *ngIf="citizenForm.get('fatherName')?.invalid && citizenForm.get('fatherName')?.touched">
+        Father Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Mother Name</mat-label>
+      <input matInput formControlName="motherName" />
+      <mat-error *ngIf="citizenForm.get('motherName')?.invalid && citizenForm.get('motherName')?.touched">
+        Mother Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Grandfather Name</mat-label>
+      <input matInput formControlName="grandfatherName" />
+      <mat-error *ngIf="citizenForm.get('grandfatherName')?.invalid && citizenForm.get('grandfatherName')?.touched">
+        Grandfather Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Grandmother Name</mat-label>
+      <input matInput formControlName="grandmotherName" />
+      <mat-error *ngIf="citizenForm.get('grandmotherName')?.invalid && citizenForm.get('grandmotherName')?.touched">
+        Grandmother Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date of Birth</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="citizenForm.get('dateOfBirth')?.invalid && citizenForm.get('dateOfBirth')?.touched">
+        Date of Birth is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Phone Number</mat-label>
+      <input matInput formControlName="phoneNo" />
+      <mat-error *ngIf="citizenForm.get('phoneNo')?.invalid && citizenForm.get('phoneNo')?.touched">
+        Phone number is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Citizenship Number</mat-label>
+      <input matInput formControlName="citizenshipNumber" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Marriage Status</mat-label>
+      <mat-select formControlName="marriageStatus">
+        <mat-option value="SINGLE">Single</mat-option>
+        <mat-option value="MARRIED">Married</mat-option>
+        <mat-option value="DIVORCED">Divorced</mat-option>
+        <mat-option value="WIDOWED">Widowed</mat-option>
+      </mat-select>
+      <mat-error *ngIf="citizenForm.get('marriageStatus')?.invalid && citizenForm.get('marriageStatus')?.touched">
+        Marriage status is required
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">
+      {{ isUpdateMode ? 'Update' : 'Save' }}
+    </button>
   </mat-card>
-<div *ngIf="!showDocumentUpload">
-<mat-card class="form-card">
-  <mat-card-title>Create Citizen Profile</mat-card-title>
+</form>
 
-
-  <mat-card-content>
-
-    <form [formGroup]="citizenForm" (ngSubmit)="onSubmit()">
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>First Name</mat-label>
-          <input matInput formControlName="firstName">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Middle Name</mat-label>
-          <input matInput formControlName="middleName">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Last Name</mat-label>
-          <input matInput formControlName="lastName">
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Gender</mat-label>
-          <mat-select formControlName="gender">
-            <mat-option value="MALE">Male</mat-option>
-            <mat-option value="FEMALE">Female</mat-option>
-            <mat-option value="OTHER">Other</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Spouse Name</mat-label>
-          <input matInput formControlName="spouseName">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Nationality</mat-label>
-          <input matInput formControlName="nationality">
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>District</mat-label>
-          <input matInput formControlName="district">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Municipality</mat-label>
-          <input matInput formControlName="municipality">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Ward No</mat-label>
-          <input matInput type="number" formControlName="wardNo">
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Tole</mat-label>
-          <input matInput formControlName="tole">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Phone Number</mat-label>
-          <input matInput formControlName="phoneNo">
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Father's Name</mat-label>
-          <input matInput formControlName="fatherName">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Mother's Name</mat-label>
-          <input matInput formControlName="motherName">
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Grandfather's Name</mat-label>
-          <input matInput formControlName="grandfatherName">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Grandmother's Name</mat-label>
-          <input matInput formControlName="grandmotherName">
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Date of Birth</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-
-      <button mat-raised-button color="primary" type="submit">
-        Next
-      </button>
-    </form>
-  </mat-card-content>
-
-</mat-card>
-</div>
-</div>
-
-<app-citizen-document-upload
-  *ngIf="showDocumentUpload"
-  [citizenId]="citizenId"
-  [status]="status">
-</app-citizen-document-upload>
+<app-citizen-document-upload *ngIf="showDocumentUpload" [citizenId]="citizenId"
+                             [status]="status">></app-citizen-document-upload>

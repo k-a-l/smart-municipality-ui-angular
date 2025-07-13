@@ -1,9 +1,9 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, OnInit, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import {
-  NgApexchartsModule,
+  ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
-  ChartComponent,
   ApexDataLabels,
   ApexPlotOptions,
   ApexYAxis,
@@ -11,48 +11,81 @@ import {
   ApexStroke,
   ApexXAxis,
   ApexFill,
-  ApexTooltip
-} from "ng-apexcharts";
+  ApexTooltip,
+  NgApexchartsModule
+} from 'ng-apexcharts';
 
 export type ChartOptions = {
-  series: ApexAxisChartSeries | any;
-  chart: ApexChart | any;
-  dataLabels: ApexDataLabels| any;
-  plotOptions: ApexPlotOptions| any;
-  yaxis: ApexYAxis| any;
-  xaxis: ApexXAxis| any;
-  fill: ApexFill| any;
-  tooltip: ApexTooltip| any;
-  stroke: ApexStroke| any;
-  legend: ApexLegend| any;
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
+  stroke: ApexStroke;
+  legend: ApexLegend;
 };
 
 @Component({
-  selector: "app-column-chart",
+  selector: 'app-column-chart',
   standalone: true,
   imports: [NgApexchartsModule],
-  templateUrl: "./column.component.html",
-  styleUrls: ["./column.component.scss"]
+  templateUrl: './column.component.html',
+  styleUrls: ['./column.component.scss']
 })
-export class ColumnChartComponent {
-  @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+export class ColumnChartComponent implements OnInit {
+  @ViewChild('chart') chart!: ChartComponent;
+  public chartOptions!: Partial<ChartOptions>;
 
-  constructor() {
+  private http = inject(HttpClient);
+
+  baseUrl = 'http://localhost:8080/api/v1/dashboard';
+  // Full month names in uppercase matching backend keys
+  months: string[] = [
+    'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL',
+    'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER',
+    'OCTOBER', 'NOVEMBER', 'DECEMBER'
+  ];
+
+  ngOnInit(): void {
+    Promise.all([
+      this.http.get<Record<string, number>>(`${this.baseUrl}/birth/count-by-month`).toPromise(),
+      this.http.get<Record<string, number>>(`${this.baseUrl}/death/count-by-month`).toPromise(),
+      this.http.get<Record<string, number>>(`${this.baseUrl}/marriage/count-by-month`).toPromise()
+    ]).then(([birthData = {}, deathData = {}, marriageData = {}]) => {
+      console.log('birthData', birthData);
+      console.log('deathData', deathData);
+      console.log('marriageData', marriageData);
+      this.buildChart(birthData, deathData, marriageData);
+    });
+  }
+
+
+  buildChart(
+    birth: Record<string, number>,
+    death: Record<string, number>,
+    marriage: Record<string, number>
+  ) {
+    // Helper: map backend data to array of numbers for chart series
+    const getData = (data: Record<string, number>) =>
+      this.months.map(month => data[month] || 0);
+
     this.chartOptions = {
       series: [
-        { name: "Net Profit", data: [44, 55, 57, 56, 61, 58, 63, 60, 66] },
-        { name: "Revenue", data: [76, 85, 101, 98, 87, 105, 91, 114, 94] },
-        { name: "Free Cash Flow", data: [35, 41, 36, 26, 45, 48, 52, 53, 41] }
+        { name: 'Birth', data: getData(birth) },
+        { name: 'Death', data: getData(death) },
+        { name: 'Marriage', data: getData(marriage) }
       ],
       chart: {
-        type: "bar",
+        type: 'bar',
         height: 350
       },
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: "55%"
+          columnWidth: '55%'
         }
       },
       dataLabels: {
@@ -61,14 +94,14 @@ export class ColumnChartComponent {
       stroke: {
         show: true,
         width: 2,
-        colors: ["transparent"]
+        colors: ['transparent']
       },
       xaxis: {
-        categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"]
+        categories: this.months.map(m => m.slice(0, 3)) // Display "JAN", "FEB", ...
       },
       yaxis: {
         title: {
-          text: "$ (thousands)"
+          text: 'Count'
         }
       },
       fill: {
@@ -76,10 +109,11 @@ export class ColumnChartComponent {
       },
       tooltip: {
         y: {
-          formatter: function (val: number) {
-            return "$ " + val + " thousands";
-          }
+          formatter: (val: number) => `${val} requests`
         }
+      },
+      legend: {
+        position: 'top'
       }
     };
   }

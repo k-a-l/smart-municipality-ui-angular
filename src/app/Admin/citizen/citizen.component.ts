@@ -80,11 +80,14 @@ export class CitizenComponent implements OnInit {
     });
   }
 
-  updateCitizen(c: number) {
-    this.router.navigate(['/citizen/update', c]).then(success => {
+  updateCitizen(citizen: any) {
+    localStorage.setItem('citizenForUpdate', JSON.stringify(citizen));
+
+    this.router.navigate(['/update/citizen', citizen.id]).then(success => {
+
+      console.log(citizen);
       if (success) console.log('Navigation successful');
     });
-
   }
 
 

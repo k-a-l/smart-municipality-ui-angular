@@ -5,6 +5,7 @@ import { CitizenService } from '../../../services/citizen.service';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {NgIf} from '@angular/common';
 import {MatButton} from '@angular/material/button';
+import {MatCard} from '@angular/material/card';
 
 @Component({
   selector: 'app-birth-certificate-review',
@@ -12,7 +13,8 @@ import {MatButton} from '@angular/material/button';
   imports: [
     MatProgressBar,
     NgIf,
-    MatButton
+    MatButton,
+    MatCard
   ],
   styleUrls: ['./birth-certificate-review.component.scss']
 })

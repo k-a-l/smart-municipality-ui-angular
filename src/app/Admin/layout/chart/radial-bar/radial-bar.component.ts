@@ -76,8 +76,8 @@ export class RadialBarComponent {
           }
         }
       },
-      colors: ["#1ab7ea", "#0084ff", "#39539E", "#0077B5"],
-      labels: ["Vimeo", "Messenger", "Facebook", "LinkedIn"],
+      colors: ["#dab237", "#0f6100", "#dd0000", "#0077B5"],
+      labels: ["Pending", "Approved", "Rejected", "Video Verified"],
       legend: {
         show: true,
         floating: true,

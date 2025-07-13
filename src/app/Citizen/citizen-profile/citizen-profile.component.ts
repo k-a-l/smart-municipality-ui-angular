@@ -274,7 +274,6 @@ export class CitizenProfileComponent implements OnInit {
     if (!this.citizen) return [];
 
     return [
-      { label: 'ID', value: this.citizen.id },
       { label: 'Name', value: `${this.citizen.firstName} ${this.citizen.middleName || ''} ${this.citizen.lastName}` },
       { label: 'Gender', value: this.citizen.gender },
       { label: 'Spouse Name', value: this.citizen.spouseName || 'N/A' },

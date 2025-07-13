@@ -1,66 +1,55 @@
-.form-card {
-  max-width: 1100px;
-  margin: 2rem auto;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 2rem;
-  border-radius: 12px;
-  background-color: #fff;
-  margin-left: 250px;
-  margin-top: 60px;
 
-  mat-card-title {
-    text-align: center;
-    font-size: 24px;
-    font-weight: 600;
-    color: #3f51b5;
-    margin-bottom: 1.5rem;
-  }
+  mat-card {
+    width: 100%;
+    max-width: 900px;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    mat-form-field {
+      width: 100%;
 
-    .form-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
+      mat-label {
+        font-weight: 500;
+      }
 
-      mat-form-field {
-        flex: 1 1 30%;
-        min-width: 240px;
+      input, mat-select {
+        font-size: 14px;
+      }
+
+      mat-error {
+        font-size: 12px;
+        color: #e53935;
       }
     }
 
-    button {
-      align-self: center;
-      padding: 0.8rem 2.5rem;
+    button[type="submit"] {
+      grid-column: span 2;
+      justify-self: center;
+      margin-top: 1rem;
+      padding: 0.75rem 2rem;
       font-size: 16px;
-      border-radius: 8px;
+      font-weight: 600;
     }
   }
 }
-.status-message {
-  margin: 40vh;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  font-weight: 500;
-  font-size: 1.1rem;
-  color: white;
-  background-color: #607d8b; // fallback
 
-  text-align: center;
-  width: fit-content;
-  max-width: 90%;
+// Responsive tweaks
+@media (max-width: 600px) {
+  form mat-card {
+    grid-template-columns: 1fr;
 
-  &.pending {
-    background-color: #ff9800;
-  }
-
-  &.approved {
-    background-color: #4caf50;
-  }
-
-  &.rejected {
-    background-color: #f44336;
+    button[type="submit"] {
+      grid-column: span 1;
+    }
   }
 }

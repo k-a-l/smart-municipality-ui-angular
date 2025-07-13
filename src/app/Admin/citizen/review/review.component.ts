@@ -7,11 +7,15 @@ import { MunicipalityService } from '../../../services/municipality.service';
 import { DocumentService } from '../../../services/document.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import {UserServiceService} from '../../../User/user-service.service';
+import {MatCard} from '@angular/material/card';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {MatFormField, MatLabel} from '@angular/material/input';
 
 @Component({
   selector: 'app-review',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatCard, MatProgressSpinner,
+  MatFormField, MatLabel],
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss']
 })
@@ -81,6 +85,8 @@ export class ReviewComponent implements OnInit {
     }
     this.citizenService.approveCitizen(this.citizenId, this.verifiedBy).subscribe({
       next: () => {
+        localStorage.setItem("citizen",this.citizen)
+        console.log(this.citizen);
         alert('Citizen approved successfully.');
         this.router.navigate(['/citizens']);
       }

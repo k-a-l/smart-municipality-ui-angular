@@ -40,9 +40,7 @@
 </div>
 </div>
 
-<div *ngIf="uploadCompleted"
-     class="status-message"
-     [ngClass]="status?.toLowerCase()">
-  Your citizen request is <strong>{{ status }}</strong>.
+<div *ngIf="uploadCompleted" class="status-message success">
+  Your citizen request has been submitted successfully. For confirmation, please check your email.
 </div>
 

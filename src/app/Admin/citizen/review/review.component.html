@@ -4,28 +4,28 @@
   <h2>Citizen Review</h2>
 
   <div class="details-grid">
-    <div><strong>First Name:</strong> {{ citizen.firstName }}</div>
-    <div><strong>Middle Name:</strong> {{ citizen.middleName }}</div>
-    <div><strong>Last Name:</strong> {{ citizen.lastName }}</div>
-    <div><strong>Spouse Name:</strong> {{ citizen.spouseName }}</div>
-    <div><strong>Date of Birth:</strong> {{ citizen.dateOfBirth | date }}</div>
-    <div><strong>Phone Number:</strong> {{ citizen.phoneNo }}</div>
-    <div><strong>Father's Name:</strong> {{ citizen.fatherName }}</div>
-    <div><strong>Mother's Name:</strong> {{ citizen.motherName }}</div>
-    <div><strong>Grandfather's Name:</strong> {{ citizen.grandfatherName }}</div>
-    <div><strong>Grandmother's Name:</strong> {{ citizen.grandmotherName }}</div>
-    <div><strong>Gender:</strong> {{ citizen.gender }}</div>
-    <div><strong>Nationality:</strong> {{ citizen.nationality }}</div>
-    <div><strong>District:</strong> {{ citizen.district }}</div>
-    <div><strong>Municipality:</strong> {{ citizen.municipality }}</div>
-    <div><strong>Ward No:</strong> {{ citizen.wardNo }}</div>
-    <div><strong>Tole:</strong> {{ citizen.tole }}</div>
-    <div><strong>Status:</strong> {{ citizen.status }}</div>
-    <div><strong>Reason for Rejection:</strong> {{ citizen.reasonForRejection || 'N/A' }}</div>
-    <div><strong>Verified Date:</strong> {{ citizen.verifiedDate ? (citizen.verifiedDate | date) : 'Not verified' }}</div>
-    <div><strong>Verified By (User ID):</strong> {{ citizen.verifiedBy || 'N/A' }}</div>
-    <div><strong>Created At:</strong> {{ citizen.createdAt | date }}</div>
-    <div><strong>Updated At:</strong> {{ citizen.updatedAt | date }}</div>
+    <div><strong>First Name</strong><br>{{ citizen.firstName }}</div>
+    <div><strong>Middle Name</strong> <br>{{ citizen.middleName }}</div>
+    <div><strong>Last Name</strong> <br>{{ citizen.lastName }}</div>
+    <div><strong>Spouse Name</strong><br> {{ citizen.spouseName }}</div>
+    <div><strong>Date of Birth</strong><br> {{ citizen.dateOfBirth | date }}</div>
+    <div><strong>Phone Number</strong> <br>{{ citizen.phoneNo }}</div>
+    <div><strong>Father's Name</strong><br> {{ citizen.fatherName }}</div>
+    <div><strong>Mother's Name</strong> <br>{{ citizen.motherName }}</div>
+    <div><strong>Grandfather's Name</strong><br> {{ citizen.grandfatherName }}</div>
+    <div><strong>Grandmother's Name</strong><br> {{ citizen.grandmotherName }}</div>
+    <div><strong>Gender</strong> <br>{{ citizen.gender }}</div>
+    <div><strong>Nationality</strong><br> {{ citizen.nationality }}</div>
+    <div><strong>District</strong> <br>{{ citizen.district }}</div>
+    <div><strong>Municipality</strong> <br>{{ citizen.municipality }}</div>
+    <div><strong>Ward No</strong> <br>{{ citizen.wardNo }}</div>
+    <div><strong>Tole</strong> <br>{{ citizen.tole }}</div>
+    <div><strong>Status</strong> <br>{{ citizen.status }}</div>
+    <div><strong>Reason for Rejection</strong> <br>{{ citizen.reasonForRejection || 'N/A' }}</div>
+    <div><strong>Verified Date</strong> <br>{{ citizen.verifiedDate ? (citizen.verifiedDate | date) : 'Not verified' }}</div>
+    <div><strong>Verified By (User ID)</strong><br> {{ citizen.verifiedBy || 'N/A' }}</div>
+    <div><strong>Created At</strong> <br>{{ citizen.createdAt | date }}</div>
+    <div><strong>Updated At:</strong> <br>{{ citizen.updatedAt | date }}</div>
   </div>
 
     <!-- Uploaded documents -->
@@ -33,7 +33,7 @@
       <h3>Uploaded Documents</h3>
       <div class="document-grid">
         <div *ngFor="let doc of citizen.documents" class="doc-preview">
-          <p><strong>{{ doc.documentType }}</strong> ({{ doc.fileName }})</p>
+          <p>({{ doc.fileName }})</p>
 
           <ng-container [ngSwitch]="doc.contentType">
             <img *ngSwitchCase="'image/png'" [src]="doc.previewUrl" class="preview-img" />
@@ -61,3 +61,4 @@
     </div>
   </div>
 </div>
+

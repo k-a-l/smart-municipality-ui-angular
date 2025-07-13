@@ -15,9 +15,30 @@ export class SidebarComponent {
   router = inject(Router);
 
   role: string = localStorage.getItem('role') || 'guest'; // fallback role
+  department: string = localStorage.getItem('department') || 'N/A';
 
   constructor() {
     console.log('Role from localStorage:', this.role);
+  }
+
+  isDepartmentBirth(): boolean {
+    return this.department === 'BIRTH_DEPARTMENT';
+  }
+
+  isDepartmentAdministrator(): boolean {
+    return this.department === 'ADMINISTRATION_DEPARTMENT';
+  }
+
+  isDepartmentMarriage(): boolean {
+    return this.department === 'MARRIAGE_DEPARTMENT';
+  }
+
+  isDepartmentDeath(): boolean {
+    return this.department === 'DEATH_DEPARTMENT';
+  }
+
+  isDepartmentCitizen(): boolean {
+    return this.department === 'CITIZEN_DEPARTMENT';
   }
 
   isAdmin(): boolean {

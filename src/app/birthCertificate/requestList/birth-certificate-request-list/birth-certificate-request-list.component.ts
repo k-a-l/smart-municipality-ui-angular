@@ -10,6 +10,15 @@ import { BirthCertificateService } from '../../birth-certificate-service.service
 import { CitizenService } from '../../../services/citizen.service';
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
+import {
+  DeathCertificateListComponent
+} from '../../../deathCertificate/death-certificate-list/death-certificate-list.component';
+import {
+  MarriageCertificateRequestListComponent
+} from '../../../marriageCertificate/marriage-certificate-list/marriage-certificate-list.component';
+import {
+  MarriageCertificateListCitizenComponent
+} from '../../../marriageCertificate/marriage-certificate-list-citizen/marriage-certificate-list-citizen.component';
 
 @Component({
   selector: 'app-birth-certificate-request-list',
@@ -21,6 +30,10 @@ import { MatIcon } from '@angular/material/icon';
     MatProgressBarModule,
     FormsModule,
     MatIcon,
+    DeathCertificateListComponent,
+    MarriageCertificateRequestListComponent,
+    MarriageCertificateListCitizenComponent,
+
   ],
   templateUrl: './birth-certificate-request-list.component.html',
   styleUrls: ['./birth-certificate-request-list.component.scss'],
@@ -81,6 +94,7 @@ export class BirthCertificateRequestListComponent implements OnInit {
           .subscribe({
             next: (data) => {
               this.requests = data;
+              console.log(this.requests);
               this.isLoading = false;
             },
             error: (err) => {
