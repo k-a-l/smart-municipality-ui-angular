@@ -47,6 +47,10 @@ export class BirthCertificateFormComponent implements OnInit {
       childName: ['', Validators.required],
       gender: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
+      nationality: ['', Validators.required],
+      district: ['', Validators.required],
+      municipality: ['', Validators.required],
+      wardNo: ['', Validators.required],
       citizenId: [{ value: '', disabled: true ,hidden: true}, Validators.required],
       requestedBy: [{ value: '', disabled: true , hidden: true}] // Assuming this is set later
     });
@@ -61,11 +65,17 @@ export class BirthCertificateFormComponent implements OnInit {
       next: (citizen: any) => {
         this.birthForm.patchValue({
           citizenId: citizen.id,
-          requestedBy: citizen.id
+          requestedBy: citizen.id,
+          status: citizen.status,
         });
+        if (citizen.status != "APPROVED" ) {
+          this.errorMessage = 'Your citizen request must be approved.';
+          this.isSubmitting = true;
+
+        }
       },
       error: () => {
-        this.errorMessage = 'Failed to load citizen ID from email.';
+        this.errorMessage = 'First Verify You Are the Citizen of Nepal';
       }
     });
   }
@@ -81,7 +91,11 @@ export class BirthCertificateFormComponent implements OnInit {
       gender: formValue.gender,
       dateOfBirth: formValue.dateOfBirth,
       citizen: { id: formValue.citizenId },
-      requestedBy: formValue.requestedBy
+      requestedBy: formValue.requestedBy,
+      municipality: formValue.municipality,
+      district: formValue.district,
+      wardNo: formValue.wardNo,
+      nationality:formValue.nationality
     };
 
     this.certificateService.saveCertificate(request).subscribe({

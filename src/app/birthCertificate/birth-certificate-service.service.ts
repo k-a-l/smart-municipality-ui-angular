@@ -16,6 +16,10 @@ export interface BirthCertificateRequest {
   citizen: Citizen;
   requestedBy?: number;
   requestedAt?: string;
+  municipality: string;
+  wardNo: number;
+  district: string;
+  nationality: string;
   status?: 'PENDING' | 'APPROVED' | 'REJECTED'; // match enum values
 }
 
@@ -78,6 +82,10 @@ export class BirthCertificateService {
     return this.http.post<{ message: string }>(`${this.apiUrl}/approve/${id}`, {});
   }
 
+  verify(id: number): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/verify/${id}`, {});
+  }
+
   rejectRequest(id: number): Observable<{ message: string }> {
     return this.http.post<{ message: string }>(`${this.apiUrl}/reject/${id}`, {});
   }
@@ -87,5 +95,18 @@ export class BirthCertificateService {
   getRequestById(id: number): Observable<BirthCertificateRequest> {
     return this.http.get<BirthCertificateRequest>(`${this.apiUrl}/by-id/${id}`);
   }
+
+  verifyRequest(id: number): Observable<{ message: string }> {
+    return this.http.patch<{ message: string }>(`${this.apiUrl}/verify?id=${id}`, {});
+  }
+
+  getByMunicipality(municipality: string): Observable<BirthCertificateRequest[]> {
+    return this.http.get<BirthCertificateRequest[]>(
+      `${this.apiUrl}/by-municipality?municipality=${municipality}`
+    );
+  }
+
+
+
 
 }

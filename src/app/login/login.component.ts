@@ -144,10 +144,12 @@ export class LoginComponent {
       password: this.password
     }).subscribe({
       next: (res) => {
+        console.log(res);
         localStorage.setItem('jwt', res.jwtToken || res.token);
         localStorage.setItem('role', res.role);
         localStorage.setItem('email', res.email);
         localStorage.setItem('department', res.department);
+        localStorage.setItem('municipality', res.municipality);
         this.successMessage = 'Logged in successfully.';
         this.loading = false;
 
